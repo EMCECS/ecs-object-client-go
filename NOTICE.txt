@@ -1,0 +1,2 @@
+ECS SDK for Go
+Copyright 2017 Dell/EMC.
