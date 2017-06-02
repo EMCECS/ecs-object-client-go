@@ -1,5 +1,20 @@
 package ecs_test
 
+/*
+ * Copyright 2017 Dell EMC Corporation. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import (
 	"strconv"
 	"strings"
@@ -22,8 +37,8 @@ func init() {
 	myKey = config.GetString("s3.test_key_name")
 }
 
-func TestBucketExt(t *testing.T) {
-	_, err := unit.Session.CreateBucketExt(&ecs.CreateBucketInput{
+func TestBucketExtension(t *testing.T) {
+	_, err := unit.Session.CreateBucketExtension(&ecs.CreateBucketInput{
 		Bucket:            aws.String(myBucket),
 		ComplianceEnabled: aws.Bool(true),
 		FileSystemAccess:  aws.Bool(true),
@@ -33,7 +48,7 @@ func TestBucketExt(t *testing.T) {
 	})
 	assert.Nil(t, err)
 
-	resp, err := unit.Session.HeadBucketExt(
+	resp, err := unit.Session.HeadBucketExtension(
 		&s3.HeadBucketInput{
 			Bucket: aws.String(myBucket),
 		})
@@ -46,15 +61,15 @@ func TestBucketExt(t *testing.T) {
 	unit.Session.DeleteBucket(&s3.DeleteBucketInput{Bucket: aws.String(myBucket)})
 }
 
-func TestGetSystemMetdataSearchKeys(t *testing.T) {
-	resp, err := unit.Session.GetSystemMetdataSearchKeys(nil)
+func TestGetSystemMetadataSearchKeys(t *testing.T) {
+	resp, err := unit.Session.GetSystemMetadataSearchKeys(nil)
 	assert.Nil(t, err)
 	assert.NotZero(t, len(resp.IndexableKeys))
 	assert.NotZero(t, len(resp.OptionalAttributes))
 }
 
 func TestBucketMetadataSearch(t *testing.T) {
-	_, err := unit.Session.CreateBucketExt(&ecs.CreateBucketInput{
+	_, err := unit.Session.CreateBucketExtension(&ecs.CreateBucketInput{
 		Bucket:         aws.String(myBucket),
 		MetadataSearch: aws.String("Size,CreateTime,LastModified,x-amz-meta-STR;String,x-amz-meta-INT;Integer"),
 	})
@@ -67,7 +82,7 @@ func TestBucketMetadataSearch(t *testing.T) {
 
 	body := "aaa"
 	for i := 0; i < 3; i++ {
-		unit.Session.PutObjectExt(&ecs.PutObjectInput{Bucket: aws.String(myBucket), Key: aws.String(strconv.Itoa(i)), Body: strings.NewReader(body)})
+		unit.Session.PutObjectExtension(&ecs.PutObjectInput{Bucket: aws.String(myBucket), Key: aws.String(strconv.Itoa(i)), Body: strings.NewReader(body)})
 		body += "a"
 	}
 
@@ -93,10 +108,10 @@ func TestBucketMetadataSearch(t *testing.T) {
 	unit.Session.DeleteBucket(&s3.DeleteBucketInput{Bucket: aws.String(myBucket)})
 }
 
-func TestObjectExt(t *testing.T) {
-	unit.Session.CreateBucketExt(&ecs.CreateBucketInput{Bucket: aws.String(myBucket)})
+func TestObjectExtension(t *testing.T) {
+	unit.Session.CreateBucketExtension(&ecs.CreateBucketInput{Bucket: aws.String(myBucket)})
 
-	_, err := unit.Session.PutObjectExt(
+	_, err := unit.Session.PutObjectExtension(
 		&ecs.PutObjectInput{
 			Bucket:          aws.String(myBucket),
 			Key:             aws.String(myKey),
@@ -107,7 +122,7 @@ func TestObjectExt(t *testing.T) {
 
 	c := time.NewTimer(time.Second).C
 
-	getresp, err := unit.Session.GetObjectExt(
+	getresp, err := unit.Session.GetObjectExtension(
 		&s3.GetObjectInput{
 			Bucket: aws.String(myBucket),
 			Key:    aws.String(myKey),
@@ -115,7 +130,7 @@ func TestObjectExt(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, int64(1), *getresp.RetentionPeriod)
 
-	headresp, err := unit.Session.HeadObjectExt(
+	headresp, err := unit.Session.HeadObjectExtension(
 		&s3.HeadObjectInput{
 			Bucket: aws.String(myBucket),
 			Key:    aws.String(myKey),
@@ -126,7 +141,7 @@ func TestObjectExt(t *testing.T) {
 	// wait for RetentionPeriod expires
 	<-c
 
-	putresp, err := unit.Session.PutObjectExt(
+	putresp, err := unit.Session.PutObjectExtension(
 		&ecs.PutObjectInput{
 			Bucket: aws.String(myBucket),
 			Key:    aws.String(myKey),

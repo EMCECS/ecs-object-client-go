@@ -20,7 +20,7 @@ Checkout our EMC ECS REST API for ECS S3 Extension Features
 ## New APIs
 
 * DeleteBucketMetadataSearch
-* GetSystemMetdataSearchKeys
+* GetSystemMetadataSearchKeys
 * ListBucketMetadataSearch
 * ListBucketQuery
 * PutBucketIsStaleAllowed

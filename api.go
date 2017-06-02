@@ -1,6 +1,21 @@
 // Package ecs provides a client for ECS Extension.
 package ecs
 
+/*
+ * Copyright 2017 Dell EMC Corporation. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import (
 	"io"
 	"time"
@@ -42,8 +57,8 @@ func (c *S3) newRequest(op *request.Operation, params, data interface{}) *reques
 
 const opCreateBucket = "CreateBucket"
 
-// CreateBucketExtRequest generates a request.Request
-func (c *S3) CreateBucketExtRequest(input *CreateBucketInput) (req *request.Request, output *s3.CreateBucketOutput) {
+// CreateBucketExtensionRequest generates a request.Request
+func (c *S3) CreateBucketExtensionRequest(input *CreateBucketInput) (req *request.Request, output *s3.CreateBucketOutput) {
 	op := &request.Operation{
 		Name:       opCreateBucket,
 		HTTPMethod: "PUT",
@@ -59,16 +74,16 @@ func (c *S3) CreateBucketExtRequest(input *CreateBucketInput) (req *request.Requ
 	return
 }
 
-// CreateBucketExt API operation for ECS Extension.
-func (c *S3) CreateBucketExt(input *CreateBucketInput) (*s3.CreateBucketOutput, error) {
-	req, out := c.CreateBucketExtRequest(input)
+// CreateBucketExtension API operation for ECS Extension.
+func (c *S3) CreateBucketExtension(input *CreateBucketInput) (*s3.CreateBucketOutput, error) {
+	req, out := c.CreateBucketExtensionRequest(input)
 	return out, req.Send()
 }
 
-// CreateBucketExtWithContext is the same as CreateBucket with the addition of
+// CreateBucketExtensionWithContext is the same as CreateBucket with the addition of
 // the ability to pass a context and additional request options.
-func (c *S3) CreateBucketExtWithContext(ctx aws.Context, input *CreateBucketInput, opts ...request.Option) (*s3.CreateBucketOutput, error) {
-	req, out := c.CreateBucketExtRequest(input)
+func (c *S3) CreateBucketExtensionWithContext(ctx aws.Context, input *CreateBucketInput, opts ...request.Option) (*s3.CreateBucketOutput, error) {
+	req, out := c.CreateBucketExtensionRequest(input)
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
@@ -112,8 +127,8 @@ func (c *S3) DeleteBucketMetadataSearchWithContext(ctx aws.Context, input *Delet
 
 const opGetObject = "GetObject"
 
-// GetObjectExtRequest generates a request.Request
-func (c *S3) GetObjectExtRequest(input *s3.GetObjectInput) (req *request.Request, output *GetObjectOutput) {
+// GetObjectExtensionRequest generates a request.Request
+func (c *S3) GetObjectExtensionRequest(input *s3.GetObjectInput) (req *request.Request, output *GetObjectOutput) {
 	op := &request.Operation{
 		Name:       opGetObject,
 		HTTPMethod: "GET",
@@ -129,50 +144,50 @@ func (c *S3) GetObjectExtRequest(input *s3.GetObjectInput) (req *request.Request
 	return
 }
 
-// GetObjectExt API operation for ECS Extension.
-func (c *S3) GetObjectExt(input *s3.GetObjectInput) (*GetObjectOutput, error) {
-	req, out := c.GetObjectExtRequest(input)
+// GetObjectExtension API operation for ECS Extension.
+func (c *S3) GetObjectExtension(input *s3.GetObjectInput) (*GetObjectOutput, error) {
+	req, out := c.GetObjectExtensionRequest(input)
 	return out, req.Send()
 }
 
-// GetObjectExtWithContext is the same as GetObject with the addition of
+// GetObjectExtensionWithContext is the same as GetObject with the addition of
 // the ability to pass a context and additional request options.
-func (c *S3) GetObjectExtWithContext(ctx aws.Context, input *s3.GetObjectInput, opts ...request.Option) (*GetObjectOutput, error) {
-	req, out := c.GetObjectExtRequest(input)
+func (c *S3) GetObjectExtensionWithContext(ctx aws.Context, input *s3.GetObjectInput, opts ...request.Option) (*GetObjectOutput, error) {
+	req, out := c.GetObjectExtensionRequest(input)
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-const opGetSystemMetdataSearchKeys = "GetSystemMetdataSearchKeys"
+const opGetSystemMetadataSearchKeys = "GetSystemMetadataSearchKeys"
 
-// GetSystemMetdataSearchKeysRequest generates request.Request
-func (c *S3) GetSystemMetdataSearchKeysRequest(input *GetSystemMetdataSearchKeysInput) (req *request.Request, output *GetSystemMetdataSearchKeysOutput) {
+// GetSystemMetadataSearchKeysRequest generates request.Request
+func (c *S3) GetSystemMetadataSearchKeysRequest(input *GetSystemMetadataSearchKeysInput) (req *request.Request, output *GetSystemMetadataSearchKeysOutput) {
 	op := &request.Operation{
-		Name:       opGetSystemMetdataSearchKeys,
+		Name:       opGetSystemMetadataSearchKeys,
 		HTTPMethod: "GET",
 		HTTPPath:   "/?searchmetadata",
 	}
 
 	if input == nil {
-		input = &GetSystemMetdataSearchKeysInput{}
+		input = &GetSystemMetadataSearchKeysInput{}
 	}
 
-	output = &GetSystemMetdataSearchKeysOutput{}
+	output = &GetSystemMetadataSearchKeysOutput{}
 	req = c.newRequest(op, input, output)
 	return
 }
 
-// GetSystemMetdataSearchKeys API operation for ECS Extension.
-func (c *S3) GetSystemMetdataSearchKeys(input *GetSystemMetdataSearchKeysInput) (*GetSystemMetdataSearchKeysOutput, error) {
-	req, out := c.GetSystemMetdataSearchKeysRequest(input)
+// GetSystemMetadataSearchKeys API operation for ECS Extension.
+func (c *S3) GetSystemMetadataSearchKeys(input *GetSystemMetadataSearchKeysInput) (*GetSystemMetadataSearchKeysOutput, error) {
+	req, out := c.GetSystemMetadataSearchKeysRequest(input)
 	return out, req.Send()
 }
 
-// GetSystemMetdataSearchKeysWithContext is the same as GetSystemMetdataSearchKeys with the addition of
+// GetSystemMetadataSearchKeysWithContext is the same as GetSystemMetadataSearchKeys with the addition of
 // the ability to pass a context and additional request options.
-func (c *S3) GetSystemMetdataSearchKeysWithContext(ctx aws.Context, input *GetSystemMetdataSearchKeysInput, opts ...request.Option) (*GetSystemMetdataSearchKeysOutput, error) {
-	req, out := c.GetSystemMetdataSearchKeysRequest(input)
+func (c *S3) GetSystemMetadataSearchKeysWithContext(ctx aws.Context, input *GetSystemMetadataSearchKeysInput, opts ...request.Option) (*GetSystemMetadataSearchKeysOutput, error) {
+	req, out := c.GetSystemMetadataSearchKeysRequest(input)
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
@@ -181,13 +196,13 @@ func (c *S3) GetSystemMetdataSearchKeysWithContext(ctx aws.Context, input *GetSy
 const opHeadBucket = "HeadBucket"
 
 // HeadBucket API operation for ECS Extension
-func (c *S3) HeadBucketExt(input *s3.HeadBucketInput) (*HeadBucketOutput, error) {
-	req, out := c.HeadBucketExtRequest(input)
+func (c *S3) HeadBucketExtension(input *s3.HeadBucketInput) (*HeadBucketOutput, error) {
+	req, out := c.HeadBucketExtensionRequest(input)
 	return out, req.Send()
 }
 
-// HeadBucketExtRequest generates a request.Request
-func (c *S3) HeadBucketExtRequest(input *s3.HeadBucketInput) (req *request.Request, output *HeadBucketOutput) {
+// HeadBucketExtensionRequest generates a request.Request
+func (c *S3) HeadBucketExtensionRequest(input *s3.HeadBucketInput) (req *request.Request, output *HeadBucketOutput) {
 	op := &request.Operation{
 		Name:       opHeadBucket,
 		HTTPMethod: "HEAD",
@@ -203,16 +218,10 @@ func (c *S3) HeadBucketExtRequest(input *s3.HeadBucketInput) (req *request.Reque
 	return
 }
 
-// HeadBucketExt API operation for ECS Extension.
-func (c *S3) HeadBucketExtg(input *s3.HeadBucketInput) (*HeadBucketOutput, error) {
-	req, out := c.HeadBucketExtRequest(input)
-	return out, req.Send()
-}
-
-// HeadBucketExtWithContext is the same as HeadBucket with the addition of
+// HeadBucketExtensionWithContext is the same as HeadBucket with the addition of
 // the ability to pass a context and additional request options.
-func (c *S3) HeadBucketExtWithContext(ctx aws.Context, input *s3.HeadBucketInput, opts ...request.Option) (*HeadBucketOutput, error) {
-	req, out := c.HeadBucketExtRequest(input)
+func (c *S3) HeadBucketExtensionWithContext(ctx aws.Context, input *s3.HeadBucketInput, opts ...request.Option) (*HeadBucketOutput, error) {
+	req, out := c.HeadBucketExtensionRequest(input)
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
@@ -220,8 +229,8 @@ func (c *S3) HeadBucketExtWithContext(ctx aws.Context, input *s3.HeadBucketInput
 
 const opHeadObject = "HeadObject"
 
-// HeadObjectExtRequest generates a request.Request
-func (c *S3) HeadObjectExtRequest(input *s3.HeadObjectInput) (req *request.Request, output *HeadObjectOutput) {
+// HeadObjectExtensionRequest generates a request.Request
+func (c *S3) HeadObjectExtensionRequest(input *s3.HeadObjectInput) (req *request.Request, output *HeadObjectOutput) {
 	op := &request.Operation{
 		Name:       opHeadObject,
 		HTTPMethod: "HEAD",
@@ -237,16 +246,16 @@ func (c *S3) HeadObjectExtRequest(input *s3.HeadObjectInput) (req *request.Reque
 	return
 }
 
-// HeadObjectExt API operation for ECS Extension.
-func (c *S3) HeadObjectExt(input *s3.HeadObjectInput) (*HeadObjectOutput, error) {
-	req, out := c.HeadObjectExtRequest(input)
+// HeadObjectExtension API operation for ECS Extension.
+func (c *S3) HeadObjectExtension(input *s3.HeadObjectInput) (*HeadObjectOutput, error) {
+	req, out := c.HeadObjectExtensionRequest(input)
 	return out, req.Send()
 }
 
-// HeadObjectExtWithContext is the same as HeadObject with the addition of
+// HeadObjectExtensionWithContext is the same as HeadObject with the addition of
 // the ability to pass a context and additional request options.
-func (c *S3) HeadObjectExtWithContext(ctx aws.Context, input *s3.HeadObjectInput, opts ...request.Option) (*HeadObjectOutput, error) {
-	req, out := c.HeadObjectExtRequest(input)
+func (c *S3) HeadObjectExtensionWithContext(ctx aws.Context, input *s3.HeadObjectInput, opts ...request.Option) (*HeadObjectOutput, error) {
+	req, out := c.HeadObjectExtensionRequest(input)
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
@@ -358,8 +367,8 @@ func (c *S3) PutBucketIsStaleAllowedWithContext(ctx aws.Context, input *PutBucke
 
 const opPutObject = "PutObject"
 
-// PutObjectExtRequest generates a request.Request
-func (c *S3) PutObjectExtRequest(input *PutObjectInput) (req *request.Request, output *PutObjectOutput) {
+// PutObjectExtensionRequest generates a request.Request
+func (c *S3) PutObjectExtensionRequest(input *PutObjectInput) (req *request.Request, output *PutObjectOutput) {
 	op := &request.Operation{
 		Name:       opPutObject,
 		HTTPMethod: "PUT",
@@ -375,16 +384,16 @@ func (c *S3) PutObjectExtRequest(input *PutObjectInput) (req *request.Request, o
 	return
 }
 
-// PutObjectExt API operation for ECS Extension.
-func (c *S3) PutObjectExt(input *PutObjectInput) (*PutObjectOutput, error) {
-	req, out := c.PutObjectExtRequest(input)
+// PutObjectExtension API operation for ECS Extension.
+func (c *S3) PutObjectExtension(input *PutObjectInput) (*PutObjectOutput, error) {
+	req, out := c.PutObjectExtensionRequest(input)
 	return out, req.Send()
 }
 
-// PutObjectExtWithContext is the same as PutObject with the addition of
+// PutObjectExtensionWithContext is the same as PutObject with the addition of
 // the ability to pass a context and additional request options.
-func (c *S3) PutObjectExtWithContext(ctx aws.Context, input *PutObjectInput, opts ...request.Option) (*PutObjectOutput, error) {
-	req, out := c.PutObjectExtRequest(input)
+func (c *S3) PutObjectExtensionWithContext(ctx aws.Context, input *PutObjectInput, opts ...request.Option) (*PutObjectOutput, error) {
+	req, out := c.PutObjectExtensionRequest(input)
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
@@ -587,7 +596,7 @@ func (s DeleteBucketMetadataSearchOutput) GoString() string {
 	return s.String()
 }
 
-type EmcEcsExtIndexableKey struct {
+type EcsIndexableKey struct {
 	_ struct{} `type:"structure"`
 
 	Datatype *string `type:"string"`
@@ -595,85 +604,85 @@ type EmcEcsExtIndexableKey struct {
 }
 
 // String returns the string representation
-func (s EmcEcsExtIndexableKey) String() string {
+func (s EcsIndexableKey) String() string {
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-func (s EmcEcsExtIndexableKey) GoString() string {
+func (s EcsIndexableKey) GoString() string {
 	return s.String()
 }
 
 // SetDatatype sets the Datatype field's value.
-func (s *EmcEcsExtIndexableKey) SetDatatype(v string) *EmcEcsExtIndexableKey {
+func (s *EcsIndexableKey) SetDatatype(v string) *EcsIndexableKey {
 	s.Datatype = &v
 	return s
 }
 
 // SetName sets the Name field's value.
-func (s *EmcEcsExtIndexableKey) SetName(v string) *EmcEcsExtIndexableKey {
+func (s *EcsIndexableKey) SetName(v string) *EcsIndexableKey {
 	s.Name = &v
 	return s
 }
 
-type EmcEcsExtObjectMatch struct {
+type EcsObjectMatch struct {
 	_ struct{} `type:"structure"`
 
-	IndexKey        *string              `locationName:"indexKey" type:"string"`
-	ObjectId        *string              `locationName:"objectId" type:"string"`
-	ObjectName      *string              `locationName:"objectName" type:"string"`
-	ObjectOwnerZone *string              `locationName:"objectOwnerZone" type:"string"`
-	QueryMds        []*EmcEcsExtQueryMds `locationName:"queryMds" type:"list" flattened:"true"`
-	VersionId       *string              `locationName:"versionId" type:"string"`
+	IndexKey        *string             `locationName:"indexKey" type:"string"`
+	ObjectId        *string             `locationName:"objectId" type:"string"`
+	ObjectName      *string             `locationName:"objectName" type:"string"`
+	ObjectOwnerZone *string             `locationName:"objectOwnerZone" type:"string"`
+	QueryMetadata   []*EcsQueryMetadata `locationName:"queryMds" type:"list" flattened:"true"`
+	VersionId       *string             `locationName:"versionId" type:"string"`
 }
 
 // String returns the string representation
-func (s EmcEcsExtObjectMatch) String() string {
+func (s EcsObjectMatch) String() string {
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-func (s EmcEcsExtObjectMatch) GoString() string {
+func (s EcsObjectMatch) GoString() string {
 	return s.String()
 }
 
 // SetIndexKey sets the IndexKey field's value.
-func (s *EmcEcsExtObjectMatch) SetIndexKey(v string) *EmcEcsExtObjectMatch {
+func (s *EcsObjectMatch) SetIndexKey(v string) *EcsObjectMatch {
 	s.IndexKey = &v
 	return s
 }
 
 // SetObjectId sets the ObjectId field's value.
-func (s *EmcEcsExtObjectMatch) SetObjectId(v string) *EmcEcsExtObjectMatch {
+func (s *EcsObjectMatch) SetObjectId(v string) *EcsObjectMatch {
 	s.ObjectId = &v
 	return s
 }
 
 // SetObjectName sets the ObjectName field's value.
-func (s *EmcEcsExtObjectMatch) SetObjectName(v string) *EmcEcsExtObjectMatch {
+func (s *EcsObjectMatch) SetObjectName(v string) *EcsObjectMatch {
 	s.ObjectName = &v
 	return s
 }
 
 // SetObjectOwnerZone sets the ObjectOwnerZone field's value.
-func (s *EmcEcsExtObjectMatch) SetObjectOwnerZone(v string) *EmcEcsExtObjectMatch {
+func (s *EcsObjectMatch) SetObjectOwnerZone(v string) *EcsObjectMatch {
 	s.ObjectOwnerZone = &v
 	return s
 }
 
-// SetQueryMds sets the QueryMds field's value.
-func (s *EmcEcsExtObjectMatch) SetQueryMds(v []*EmcEcsExtQueryMds) *EmcEcsExtObjectMatch {
-	s.QueryMds = v
+// SetQueryMetadata sets the QueryMetadata field's value.
+func (s *EcsObjectMatch) SetQueryMetadata(v []*EcsQueryMetadata) *EcsObjectMatch {
+	s.QueryMetadata = v
 	return s
 }
 
 // SetVersionId sets the VersionId field's value.
-func (s *EmcEcsExtObjectMatch) SetVersionId(v string) *EmcEcsExtObjectMatch {
+func (s *EcsObjectMatch) SetVersionId(v string) *EcsObjectMatch {
 	s.VersionId = &v
 	return s
 }
 
-type EmcEcsExtOptionalAttribute struct {
+type EcsOptionalAttribute struct {
 	_ struct{} `type:"structure"`
 
 	Datatype *string `type:"string"`
@@ -681,53 +690,53 @@ type EmcEcsExtOptionalAttribute struct {
 }
 
 // String returns the string representation
-func (s EmcEcsExtOptionalAttribute) String() string {
+func (s EcsOptionalAttribute) String() string {
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-func (s EmcEcsExtOptionalAttribute) GoString() string {
+func (s EcsOptionalAttribute) GoString() string {
 	return s.String()
 }
 
 // SetDatatype sets the Datatype field's value.
-func (s *EmcEcsExtOptionalAttribute) SetDatatype(v string) *EmcEcsExtOptionalAttribute {
+func (s *EcsOptionalAttribute) SetDatatype(v string) *EcsOptionalAttribute {
 	s.Datatype = &v
 	return s
 }
 
 // SetName sets the Name field's value.
-func (s *EmcEcsExtOptionalAttribute) SetName(v string) *EmcEcsExtOptionalAttribute {
+func (s *EcsOptionalAttribute) SetName(v string) *EcsOptionalAttribute {
 	s.Name = &v
 	return s
 }
 
-type EmcEcsExtQueryMds struct {
+type EcsQueryMetadata struct {
 	_ struct{} `type:"structure"`
 
-	MdMap  map[string]*string `locationName:"mdMap" type:"map"`
-	MdType *string            `locationName:"type" type:"string"`
+	MetadataMap  map[string]*string `locationName:"mdMap" type:"map"`
+	MetadataType *string            `locationName:"type" type:"string"`
 }
 
 // String returns the string representation
-func (s EmcEcsExtQueryMds) String() string {
+func (s EcsQueryMetadata) String() string {
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-func (s EmcEcsExtQueryMds) GoString() string {
+func (s EcsQueryMetadata) GoString() string {
 	return s.String()
 }
 
-// SetMdMap sets the MdMap field's value.
-func (s *EmcEcsExtQueryMds) SetMdMap(v map[string]*string) *EmcEcsExtQueryMds {
-	s.MdMap = v
+// SetMetadataMap sets the MetadataMap field's value.
+func (s *EcsQueryMetadata) SetMetadataMap(v map[string]*string) *EcsQueryMetadata {
+	s.MetadataMap = v
 	return s
 }
 
-// SetMdType sets the MdType field's value.
-func (s *EmcEcsExtQueryMds) SetMdType(v string) *EmcEcsExtQueryMds {
-	s.MdType = &v
+// SetMetadataType sets the MetadataType field's value.
+func (s *EcsQueryMetadata) SetMetadataType(v string) *EcsQueryMetadata {
+	s.MetadataType = &v
 	return s
 }
 
@@ -777,8 +786,8 @@ type GetObjectOutput struct {
 	// you can create metadata whose values are not legal HTTP headers.
 	MissingMeta *int64 `location:"header" locationName:"x-amz-missing-meta" type:"integer"`
 	// The count of parts this object has.
-	PartsCount         *int64  `location:"header" locationName:"x-amz-mp-parts-count" type:"integer"`
-	ReplicationStatus  *string `location:"header" locationName:"x-amz-replication-status" type:"string" enum:"ReplicationStatus"`
+	PartsCount        *int64  `location:"header" locationName:"x-amz-mp-parts-count" type:"integer"`
+	ReplicationStatus *string `location:"header" locationName:"x-amz-replication-status" type:"string" enum:"ReplicationStatus"`
 	// If present, indicates that the requester was successfully charged for the
 	// request.
 	RequestCharged *string `location:"header" locationName:"x-amz-request-charged" type:"string" enum:"RequestCharged"`
@@ -1008,45 +1017,45 @@ func (s *GetObjectOutput) SetWebsiteRedirectLocation(v string) *GetObjectOutput 
 	return s
 }
 
-type GetSystemMetdataSearchKeysInput struct {
+type GetSystemMetadataSearchKeysInput struct {
 	_ struct{} `type:"structure"`
 }
 
 // String returns the string representation
-func (s GetSystemMetdataSearchKeysInput) String() string {
+func (s GetSystemMetadataSearchKeysInput) String() string {
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-func (s GetSystemMetdataSearchKeysInput) GoString() string {
+func (s GetSystemMetadataSearchKeysInput) GoString() string {
 	return s.String()
 }
 
-type GetSystemMetdataSearchKeysOutput struct {
+type GetSystemMetadataSearchKeysOutput struct {
 	_ struct{} `type:"structure"`
 
-	IndexableKeys      []*EmcEcsExtIndexableKey      `locationNameList:"Key" type:"list"`
-	OptionalAttributes []*EmcEcsExtOptionalAttribute `locationNameList:"Attribute" type:"list"`
+	IndexableKeys      []*EcsIndexableKey      `locationNameList:"Key" type:"list"`
+	OptionalAttributes []*EcsOptionalAttribute `locationNameList:"Attribute" type:"list"`
 }
 
 // String returns the string representation
-func (s GetSystemMetdataSearchKeysOutput) String() string {
+func (s GetSystemMetadataSearchKeysOutput) String() string {
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-func (s GetSystemMetdataSearchKeysOutput) GoString() string {
+func (s GetSystemMetadataSearchKeysOutput) GoString() string {
 	return s.String()
 }
 
 // SetIndexableKeys sets the IndexableKeys field's value.
-func (s *GetSystemMetdataSearchKeysOutput) SetIndexableKeys(v []*EmcEcsExtIndexableKey) *GetSystemMetdataSearchKeysOutput {
+func (s *GetSystemMetadataSearchKeysOutput) SetIndexableKeys(v []*EcsIndexableKey) *GetSystemMetadataSearchKeysOutput {
 	s.IndexableKeys = v
 	return s
 }
 
 // SetOptionalAttributes sets the OptionalAttributes field's value.
-func (s *GetSystemMetdataSearchKeysOutput) SetOptionalAttributes(v []*EmcEcsExtOptionalAttribute) *GetSystemMetdataSearchKeysOutput {
+func (s *GetSystemMetadataSearchKeysOutput) SetOptionalAttributes(v []*EcsOptionalAttribute) *GetSystemMetadataSearchKeysOutput {
 	s.OptionalAttributes = v
 	return s
 }
@@ -1358,9 +1367,9 @@ func (s *ListBucketMetadataSearchInput) SetBucket(v string) *ListBucketMetadataS
 type ListBucketMetadataSearchOutput struct {
 	_ struct{} `type:"structure"`
 
-	IndexableKeys         []*EmcEcsExtIndexableKey      `locationNameList:"Key" type:"list"`
-	MetadataSearchEnabled *bool                         `type:"boolean"`
-	OptionalAttributes    []*EmcEcsExtOptionalAttribute `locationNameList:"Attribute" type:"list"`
+	IndexableKeys         []*EcsIndexableKey      `locationNameList:"Key" type:"list"`
+	MetadataSearchEnabled *bool                   `type:"boolean"`
+	OptionalAttributes    []*EcsOptionalAttribute `locationNameList:"Attribute" type:"list"`
 }
 
 // String returns the string representation
@@ -1374,7 +1383,7 @@ func (s ListBucketMetadataSearchOutput) GoString() string {
 }
 
 // SetIndexableKeys sets the IndexableKeys field's value.
-func (s *ListBucketMetadataSearchOutput) SetIndexableKeys(v []*EmcEcsExtIndexableKey) *ListBucketMetadataSearchOutput {
+func (s *ListBucketMetadataSearchOutput) SetIndexableKeys(v []*EcsIndexableKey) *ListBucketMetadataSearchOutput {
 	s.IndexableKeys = v
 	return s
 }
@@ -1386,7 +1395,7 @@ func (s *ListBucketMetadataSearchOutput) SetMetadataSearchEnabled(v bool) *ListB
 }
 
 // SetOptionalAttributes sets the OptionalAttributes field's value.
-func (s *ListBucketMetadataSearchOutput) SetOptionalAttributes(v []*EmcEcsExtOptionalAttribute) *ListBucketMetadataSearchOutput {
+func (s *ListBucketMetadataSearchOutput) SetOptionalAttributes(v []*EcsOptionalAttribute) *ListBucketMetadataSearchOutput {
 	s.OptionalAttributes = v
 	return s
 }
@@ -1476,10 +1485,10 @@ func (s *ListBucketQueryInput) SetSorted(v string) *ListBucketQueryInput {
 type ListBucketQueryOutput struct {
 	_ struct{} `type:"structure"`
 
-	MaxKeys       *int64                  `type:"integer"`
-	Name          *string                 `type:"string"`
-	NextMarker    *string                 `type:"string"`
-	ObjectMatches []*EmcEcsExtObjectMatch `locationNameList:"object" type:"list"`
+	MaxKeys       *int64            `type:"integer"`
+	Name          *string           `type:"string"`
+	NextMarker    *string           `type:"string"`
+	ObjectMatches []*EcsObjectMatch `locationNameList:"object" type:"list"`
 }
 
 // String returns the string representation
@@ -1511,7 +1520,7 @@ func (s *ListBucketQueryOutput) SetNextMarker(v string) *ListBucketQueryOutput {
 }
 
 // SetObjectMatches sets the ObjectMatches field's value.
-func (s *ListBucketQueryOutput) SetObjectMatches(v []*EmcEcsExtObjectMatch) *ListBucketQueryOutput {
+func (s *ListBucketQueryOutput) SetObjectMatches(v []*EcsObjectMatch) *ListBucketQueryOutput {
 	s.ObjectMatches = v
 	return s
 }
